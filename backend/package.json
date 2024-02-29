@@ -5,7 +5,13 @@
   "repository": "git@github.com:nmhung1294/SE_TikTacToe.git",
   "author": "thanhdaonguye, manhhungnguyen, thanhdatle, phuonganhnguyen, quanghuynguyen",
   "license": "MIT",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js"
+  },
   "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
     "express": "^4.18.2",
     "socket.io": "^4.7.4"
   },
