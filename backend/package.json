@@ -5,6 +5,7 @@
   "repository": "git@github.com:nmhung1294/SE_TikTacToe.git",
   "author": "thanhdaonguye, manhhungnguyen, thanhdatle, phuonganhnguyen, quanghuynguyen",
   "license": "MIT",
+  "type": "module",
   "scripts": {
     "start": "node src/app.js",
     "dev": "nodemon src/app.js"

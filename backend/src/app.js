@@ -1,24 +1,37 @@
-const express = require("express");
-const http = require("http");
-const socketIo = require("socket.io");
-const cors = require("cors");
-const dotenv = require("dotenv");
-const createRoomCode = require("../utils/createRoomCode.js");
-dotenv.config();
+import express from "express";
+import { createServer } from "http";
+import { Server } from "socket.io";
+import cors from "cors";
+import { config } from "dotenv";
+config();
 
 const PORT = 8000;
 const app = express();
-const server = http.createServer(app);
-const io = socketIo(server);
+const server = createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST"],
+    credentials: true,
+  },
+});
 
-const handleConnection = require('../socketHandlers/connectionHandler');
-const handleJoinRoom = require('../socketHandlers/joinRoomHandler');
-const handleMakeMove = require('../socketHandlers/makeMoveHandler');
+import handleConnection from "../socketHandlers/connectionHandler.js";
+import handleJoinRoom from "../socketHandlers/joinRoomHandler.js";
+import handleMakeMove from "../socketHandlers/makeMoveHandler.js";
+import handleDisconnection from "../socketHandlers/disconnectionHandler.js";
+import handleNewChat from "../socketHandlers/chatHandler.js";
+import handleGameInvitation from "../socketHandlers/gameInvitationHandler.js";
+import handleFriendInvitation from "../socketHandlers/friendInvitationHandler.js";
 
 io.on("connection", (socket) => {
-  handleConnection(socket);
-  handleJoinRoom(socket);
-  handleMakeMove(socket);
+  handleConnection(socket, io);
+  handleJoinRoom(socket, io);
+  handleMakeMove(socket, io);
+  handleDisconnection(socket, io);
+  handleNewChat(socket, io);
+  handleGameInvitation(socket, io);
+  handleFriendInvitation(socket, io);
 });
 
 app.get("/login", (req, res) => {
@@ -34,7 +47,6 @@ app.get("/", (req, res) => {
 });
 
 app.use(cors(process.env.FRONTEND_URL));
-
 server.listen(PORT, () => {
   console.log(`Server is running on PORT ${PORT}`);
 });

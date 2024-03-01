@@ -1,7 +1,4 @@
-module.exports = function handleConnection(socket) {
-    console.log('A user connected: ' + socket.id);
-    
-    socket.on('disconnect', () => {
-        console.log('User disconnected: ' + socket.id);
-    });
+export default function handleConnection(socket, io) {
+  console.log("A user connected! ");
+  console.log("socket id: " + socket.id);
 };
