@@ -1,21 +1,50 @@
 import { Form, FormGroup, Label, Input, Button } from "reactstrap";
-import { Link } from "react-router-dom";
+import { useState } from "react";
 
-function LoginBox() {
-  let state = 0;
+interface Props {
+  changeForm: () => void;
+}
 
-  const handleSubmit = () => {};
+function LoginBox({ changeForm }: Props) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const changeEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(event.target.value);
+  };
+  const changePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(event.target.value);
+  };
+
+  const handleSubmit = () => {
+    console.log(email, password);
+  };
+
   return (
-      <Form onSubmit={handleSubmit}>
-        <FormGroup className="form-group">
-          <Label className="label">Email</Label>
-          <Input type="email" className="input" />
-        </FormGroup>
-        <FormGroup className="form-group">
-          <Label className="label">Password</Label>
-          <Input type="password" className="input" />
-        </FormGroup>
-      </Form>
+    <Form>
+      <FormGroup className="form-group">
+        <Label className="label">Email</Label>
+        <Input
+          type="email"
+          className="input"
+          value={email}
+          onChange={changeEmail}
+        />
+      </FormGroup>
+      <FormGroup className="form-group">
+        <Label className="label">Password</Label>
+        <Input
+          type="password"
+          className="input"
+          value={password}
+          onChange={changePassword}
+        />
+      </FormGroup>
+      <Button color="primary" children="Log in"></Button>
+      <a href="#" onClick={changeForm}>
+        Sign up
+      </a>
+    </Form>
   );
 }
 
