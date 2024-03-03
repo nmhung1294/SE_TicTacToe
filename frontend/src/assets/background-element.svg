@@ -21,9 +21,9 @@
 <path d="M405.61 466.187L498.78 559.356" stroke="#2C8DFF" stroke-width="28.9801" stroke-linecap="round"/>
 </g>
 <g opacity="0.1">
-<path d="M539.064 254L539.064 757.113" stroke="white" stroke-width="14.49" stroke-linecap="round"/>
-<path d="M368.254 254L368.254 757.113" stroke="white" stroke-width="14.49" stroke-linecap="round"/>
-<path d="M208 426.05L711.113 426.05" stroke="white" stroke-width="14.49" stroke-linecap="round"/>
-<path d="M208 596.86L711.113 596.86" stroke="white" stroke-width="14.49" stroke-linecap="round"/>
+<path d="M539.064 254L539.064 757.113" stroke="black" stroke-width="14.49" stroke-linecap="round"/>
+<path d="M368.254 254L368.254 757.113" stroke="black" stroke-width="14.49" stroke-linecap="round"/>
+<path d="M208 426.05L711.113 426.05" stroke="black" stroke-width="14.49" stroke-linecap="round"/>
+<path d="M208 596.86L711.113 596.86" stroke="black" stroke-width="14.49" stroke-linecap="round"/>
 </g>
 </svg>

@@ -3,6 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import LoginBox from "./LoginBox";
 import SignUp from "./SignUp";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "reactstrap";
 
 function Login() {
@@ -11,6 +12,11 @@ function Login() {
   const handleClick = () => {
     changeState((state + 1) % numState);
   };
+  // const navigate = useNavigate();
+ 
+  // const homePage = () => {
+  //     navigate("/home")
+  // }
 
   return (
     <div className="login-page">
@@ -19,8 +25,8 @@ function Login() {
         <div className="login">
           <LoginBox></LoginBox>
           <span>
-            <Button color="primary" children="Log in"></Button>
-            <a href="#" onClick={handleClick}>
+            <Button style={{backgroundColor: "#0090AB", border: "none"}} children="Log in"></Button>
+            <a href="#" onClick={handleClick} style={{marginLeft: "10px"}}>
                Sign up
             </a>
           </span>
@@ -29,8 +35,8 @@ function Login() {
         <div className="sign-up">
           <SignUp></SignUp>
           <span>
-            <Button color="primary" children="Sign up"></Button>
-            <a href="#" onClick={handleClick}>
+            <Button style={{backgroundColor: "#0090AB", border: "none"}} children="Sign up"></Button>
+            <a href="#" onClick={handleClick} style={{marginLeft: "10px"}}>
               Log in
             </a>
           </span>

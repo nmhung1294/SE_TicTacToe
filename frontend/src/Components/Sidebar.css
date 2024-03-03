@@ -1,0 +1,50 @@
+.sidebar {
+    background-color: #e6cea0;
+    width: 11vw;
+    height: 100vh;
+    padding-top: 10px;
+    /* display: flex;
+    flex-direction: column;
+    justify-content: center; */
+}
+
+.sidebar-item {
+    background-size: contain;
+    background-position-y: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 80px;
+    margin: 0 auto;
+    margin-top: 50px;
+    transition: 500ms;
+}
+
+.sidebar-item:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+}
+
+.logo {
+    background-image: url(../assets/full-game-logo.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 150px;
+    height: 100px;
+    margin: 0 auto;
+}
+
+.nav-play {
+    background-image: url(../assets/play.png);
+}
+
+.nav-leaderboards {
+    background-image: url(../assets/leaderboards.png);
+}
+
+.nav-account {
+    background-image: url(../assets/account.png);
+}
+
+.nav-settings {
+    background-image: url(../assets/settings.png);
+}

@@ -2,7 +2,7 @@
   width: 100vw;
   height: 100vh;
   background-image: url(../assets/background-element.svg);
-  background-color: #e8ab74;
+  background-color: #e6cea0;
   background-repeat: no-repeat;
   background-position: left;
   position: fixed;
@@ -61,3 +61,5 @@
   height: 120px;
   background-repeat: no-repeat;
 }
+
+
