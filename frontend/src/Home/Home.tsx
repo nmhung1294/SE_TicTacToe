@@ -1,8 +1,5 @@
 import "./Home.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-// import LoginBox from "./LoginBox";
-// import SignUp from "./SignUp";
-import { useNavigate } from "react-router-dom";
 import { Button } from "reactstrap";
 import Sidebar from "../Components/Sidebar";
 

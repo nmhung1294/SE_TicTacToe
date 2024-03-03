@@ -5,7 +5,7 @@ import { Nav, NavItem, NavLink } from 'reactstrap';
 const Sidebar = () => {
   return (
     <div className="sidebar">
-      <div className="logo sidebar-item">
+      <div className="logo">
       </div>
       <div className="nav-play sidebar-item">
       </div>

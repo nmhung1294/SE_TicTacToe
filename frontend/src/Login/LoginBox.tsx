@@ -40,9 +40,9 @@ function LoginBox({ changeForm }: Props) {
           onChange={changePassword}
         />
       </FormGroup>
-      <Button color="primary" children="Log in"></Button>
-      <a href="#" onClick={changeForm}>
-        Sign up
+      <Button style={{backgroundColor: "#0090AB", border: "none"}} children="Log in"></Button>
+      <a href="#" onClick={changeForm} style={{marginLeft: "10px"}}>
+          Sign up
       </a>
     </Form>
   );

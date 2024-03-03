@@ -1,5 +1,5 @@
 .homepage {
-    background-color: #F6F1E4;
+    background-color:#E6CEA0;
     width: 100%;
 }
 
@@ -12,6 +12,10 @@
     right: 10px;
     width: 40px;
     height: 40px;
+}
+
+.sign-out:hover {
+    cursor: pointer;
 }
 
 .main-content {

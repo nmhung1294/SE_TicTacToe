@@ -23,23 +23,11 @@ function Login() {
       <div className="header"></div>
       {state === 0 ? (
         <div className="login">
-          <LoginBox></LoginBox>
-          <span>
-            <Button style={{backgroundColor: "#0090AB", border: "none"}} children="Log in"></Button>
-            <a href="#" onClick={handleClick} style={{marginLeft: "10px"}}>
-               Sign up
-            </a>
-          </span>
+          <LoginBox changeForm={handleClick}></LoginBox>
         </div>
       ) : (
         <div className="sign-up">
-          <SignUp></SignUp>
-          <span>
-            <Button style={{backgroundColor: "#0090AB", border: "none"}} children="Sign up"></Button>
-            <a href="#" onClick={handleClick} style={{marginLeft: "10px"}}>
-              Log in
-            </a>
-          </span>
+          <SignUp changeForm={handleClick}></SignUp>
         </div>
       )}
     </div>

@@ -41,8 +41,8 @@ function SignUp({ changeForm }: Props) {
         <Label className="label">Confirm password</Label>
         <Input type="password" className="input" />
       </FormGroup>
-      <Button color="primary" children="Sign up"></Button>
-      <a href="#" onClick={changeForm}>
+      <Button style={{backgroundColor: "#0090AB", border: "none"}} children="Sign up"></Button>
+      <a href="#" onClick={changeForm} style={{marginLeft: "10px"}}>
         Log in
       </a>
     </Form>

@@ -1,5 +1,5 @@
 .sidebar {
-    background-color: #e6cea0;
+    background-color: #F6F1E4;
     width: 11vw;
     height: 100vh;
     padding-top: 10px;
@@ -20,7 +20,7 @@
 }
 
 .sidebar-item:hover {
-    background-color: rgba(255, 255, 255, 0.3);
+    background-color: rgba(230, 206, 160, 0.2);
     cursor: pointer;
 }
 
@@ -31,6 +31,10 @@
     width: 150px;
     height: 100px;
     margin: 0 auto;
+}
+
+.logo:hover {
+    cursor: pointer;
 }
 
 .nav-play {
