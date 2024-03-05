@@ -19,6 +19,7 @@ const io = new Server(server, {
 
 //Import routers
 import loginRouter from "../routes/loginRouter.js";
+import signupRouter from "../routes/signupRouter.js";
 
 //Import socket handlers
 import handleConnection from "../socketHandlers/connectionHandler.js";
@@ -29,6 +30,7 @@ import handleNewChat from "../socketHandlers/chatHandler.js";
 import handleGameInvitation from "../socketHandlers/gameInvitationHandler.js";
 import handleFriendInvitation from "../socketHandlers/friendInvitationHandler.js";
 
+//Socket handlers
 io.on("connection", (socket) => {
   handleConnection(socket, io);
   handleJoinRoom(socket, io);
@@ -42,17 +44,13 @@ io.on("connection", (socket) => {
 
 //use routers
 app.use("/login", loginRouter);
+app.use("/signup", signupRouter);
 
+
+//use cors
 app.use(cors(process.env.FRONTEND_URL));
 server.listen(PORT, () => {
   console.log(`Server is running on PORT ${PORT}`);
 });
 
-// import pool from "../config/db.js";
-// pool.query("SELECT * FROM users", (err, res) => {
-//   if (err) {
-//     console.log(err);
-//   } else {
-//     console.log(res.rows);
-//   }
-// });
+
