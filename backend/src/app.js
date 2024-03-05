@@ -16,6 +16,11 @@ const io = new Server(server, {
   },
 });
 
+
+//Import routers
+import loginRouter from "../routes/loginRouter.js";
+
+//Import socket handlers
 import handleConnection from "../socketHandlers/connectionHandler.js";
 import handleJoinRoom from "../socketHandlers/joinRoomHandler.js";
 import handleMakeMove from "../socketHandlers/makeMoveHandler.js";
@@ -34,19 +39,20 @@ io.on("connection", (socket) => {
   handleFriendInvitation(socket, io);
 });
 
-app.get("/login", (req, res) => {
-  res.send("<h1>Welcome to the login page!</h1>");
-});
 
-app.get("/signup", (req, res) => {
-  res.send("<h1>Welcome to the signup page!</h1>");
-});
-
-app.get("/", (req, res) => {
-  res.send("<h1>Welcome to the homepage!</h1>");
-});
+//use routers
+app.use("/login", loginRouter);
 
 app.use(cors(process.env.FRONTEND_URL));
 server.listen(PORT, () => {
   console.log(`Server is running on PORT ${PORT}`);
 });
+
+// import pool from "../config/db.js";
+// pool.query("SELECT * FROM users", (err, res) => {
+//   if (err) {
+//     console.log(err);
+//   } else {
+//     console.log(res.rows);
+//   }
+// });
