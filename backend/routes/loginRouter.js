@@ -5,17 +5,17 @@ const router = express.Router();
 router.use(express.json());
 
 router.route("/").post((req, res) => {
-  const { email, password } = req.body;
+  const { username, password } = req.body;
   pool.query(
-    "select * from users where email = $1 and password = $2;",
-    [email, password],
+    "select * from users where username = $1 and password = $2;",
+    [username, password],
     (err, result) => {
       if (err) {
-        res.status(400).json({ message: err.message });
+        res.status(400).json({ message: "invalid username or password" });
       } else {
         res
           .status(201)
-          .json({ message: "Login successfully", data: result.rows });
+          .json({ message: "login successfully", data: result.rows });
       }
     }
   );

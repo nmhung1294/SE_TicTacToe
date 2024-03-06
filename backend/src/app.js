@@ -2,8 +2,9 @@ import express from "express";
 import { createServer } from "http";
 import { Server } from "socket.io";
 import cors from "cors";
-import { config } from "dotenv";
-config();
+import dotenv from "dotenv";
+dotenv.config();
+
 
 const PORT = 8000;
 const app = express();
@@ -15,7 +16,6 @@ const io = new Server(server, {
     credentials: true,
   },
 });
-
 
 //Import routers
 import loginRouter from "../routes/loginRouter.js";
@@ -41,11 +41,9 @@ io.on("connection", (socket) => {
   handleFriendInvitation(socket, io);
 });
 
-
 //use routers
 app.use("/login", loginRouter);
 app.use("/signup", signupRouter);
-
 
 //use cors
 app.use(cors(process.env.FRONTEND_URL));
@@ -53,4 +51,15 @@ server.listen(PORT, () => {
   console.log(`Server is running on PORT ${PORT}`);
 });
 
+import pool from "../config/db.js";
 
+pool.query("SELECT * FROM users", (err, res) => {
+  if (err) {
+    console.log(err.stack);
+    console.log("failed!");
+  }
+  else {
+    console.log(res.rows);
+    console.log("success!")
+  }
+});
