@@ -9,3 +9,5 @@ Explanation:
 - src: folder chứa chương trình khởi tạo server và kết nối các thành phần
 - utils: folder chứa các file công cụ (vd: hàm tạo số ngẫu nhiên)
 
+## Hướng dẫn chạy các route (login, signup, profile):
+
