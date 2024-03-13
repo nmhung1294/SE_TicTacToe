@@ -27,18 +27,18 @@
   width: 230px;
   padding: 15px;
   padding-bottom: 0;
+  border-radius: 30px;
   background-color: transparent;
   border-color: transparent;
   transition-duration: 500ms;
 }
 
 .card:hover {
-  background-color: rgb(255, 255, 255);
-  transform: scale(1.2);
+  transform: scale(1.1);
 }
 
 .card.top1 {
-  transform: scale(1.1);
+  transform: scale(1.2);
 }
 
 .card.top1:hover {

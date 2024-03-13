@@ -1,18 +1,18 @@
 import { useState } from "react";
 import { Table } from "reactstrap";
+interface Player {
+  username: string;
+  match: number;
+  win: number;
+  points: number;
+  ava: string;
+}
 
-function PlayerBoard() {
-  const allPlayers = [
-    { username: "1", match: 6, win: 2, points: 1235555555 },
-    { username: "2", match: 6, win: 2, points: 123 },
-    { username: "3", match: 6, win: 2, points: 123 },
-    { username: "4", match: 6, win: 2, points: 123 },
-    { username: "5", match: 6, win: 2, points: 123 },
-    { username: "6", match: 6, win: 2, points: 123 },
-    { username: "7", match: 6, win: 2, points: 123 },
-    { username: "8", match: 6, win: 2, points: 123 },
-    { username: "9", match: 6, win: 2, points: 123 },
-  ];
+interface PlayerBoardProps {
+  allPlayers: Player[];
+}
+
+function PlayerBoard({ allPlayers }: PlayerBoardProps) {
 
   let perPage = 8;
   let pages = Math.floor(allPlayers.length / perPage);
