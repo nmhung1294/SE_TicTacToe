@@ -4,19 +4,10 @@ import SignOut from "../Components/SignOut";
 import Info from "./Info";
 import Edit from "./Edit";
 import Avatar from "./Avatar";
+import Password from "./Password";
 import { useState } from "react";
-import {
-  Button,
-  Form,
-  FormGroup,
-  FormText,
-  Input,
-  Label,
-  Nav,
-  NavItem,
-  NavLink,
-  Col,
-} from "reactstrap";
+import { Nav, NavItem, NavLink } from "reactstrap";
+import ChangeAvatar from "./ChangeAvatar";
 
 function Account() {
   const [state, setState] = useState(0);
@@ -33,41 +24,30 @@ function Account() {
     setState(3);
   };
 
-  const ChangeAvatar = () => {
+  const Navi = () => {
     return (
-      <Form>
-        <FormGroup>
-          <Input id="File" name="file" type="file" />
-          <FormText>Upload your new avatar</FormText>
-        </FormGroup>
-        <Button>Submit</Button>
-      </Form>
-    );
-  };
-
-  const ChangePassword = () => {
-    return (
-      <Form>
-        <FormGroup row>
-          <Label sm={2}>Current password</Label>
-          <Col sm={10}>
-            <Input type="password" />
-          </Col>
-        </FormGroup>
-        <FormGroup row>
-          <Label sm={2}>New password</Label>
-          <Col sm={10}>
-            <Input type="password" />
-          </Col>
-        </FormGroup>
-        <FormGroup row>
-          <Label sm={2}>Confirm password</Label>
-          <Col sm={10}>
-            <Input type="password" />
-          </Col>
-        </FormGroup>
-        <Button>Submit</Button>
-      </Form>
+      <Nav tabs>
+        <NavItem>
+          <NavLink active={state === 0} onClick={toInfo}>
+            Information
+          </NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink active={state === 1} onClick={toEdit}>
+            Edit
+          </NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink active={state === 2} onClick={toChangeAva}>
+            Change Avatar
+          </NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink active={state === 3} onClick={toChangePassword}>
+            Change Password
+          </NavLink>
+        </NavItem>
+      </Nav>
     );
   };
 
@@ -79,28 +59,7 @@ function Account() {
         <div style={{ alignSelf: "center", paddingTop: "40px" }}>
           <Avatar></Avatar>
           <div style={{ paddingTop: "20px" }}>
-            <Nav tabs>
-              <NavItem>
-                <NavLink active={state === 0} onClick={toInfo}>
-                  Information
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink active={state === 1} onClick={toEdit}>
-                  Edit
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink active={state === 2} onClick={toChangeAva}>
-                  Change Avatar
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink active={state === 3} onClick={toChangePassword}>
-                  Change Password
-                </NavLink>
-              </NavItem>
-            </Nav>
+            {Navi()}
             <div
               style={{
                 backgroundColor: "white",
@@ -114,9 +73,9 @@ function Account() {
               ) : state === 1 ? (
                 <Edit />
               ) : state === 2 ? (
-                <ChangeAvatar></ChangeAvatar>
+                <ChangeAvatar />
               ) : (
-                <ChangePassword></ChangePassword>
+                <Password />
               )}
             </div>
           </div>
