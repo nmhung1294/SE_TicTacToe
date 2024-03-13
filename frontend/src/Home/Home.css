@@ -3,36 +3,21 @@
     width: 100%;
 }
 
-.sign-out {
-    background-image: url(../assets/sign-out.png);
-    background-size: contain;
-    background-repeat: no-repeat;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 40px;
-    height: 40px;
-}
-
-.sign-out:hover {
-    cursor: pointer;
-}
-
-.main-content {
+.main-content-home {
     position: absolute;
     left: 11vw;
     top: 25vh;
     width: 89vw;
 }
 
-.content {
+.content-home {
     margin: 0 auto !important;
     padding-top: 20px;
     display: flex;
     justify-content: center;
 }
 
-.avatar {
+.avatar-home {
     background-image: url(../assets/game-logo.svg);
     background-repeat: no-repeat;
     background-size: contain;
@@ -41,13 +26,13 @@
     height: 30vh;
 }
 
-.username {
+.username-home {
     margin: 0 auto;
     text-align: center;
     font-size: 30px;
 }
 
-.play-now {
+.play-now-home {
     background-color: #0090AB !important;
     border: none !important;
     width: 300px;
@@ -55,7 +40,7 @@
     font-size: 30px !important;
 }
 
-.play-now:hover {
+.play-now-home:hover {
     background-color: rgba(0, 144, 171, 0.8) !important;
     border: none;
 }

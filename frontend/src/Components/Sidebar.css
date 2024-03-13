@@ -3,9 +3,6 @@
     width: 11vw;
     height: 100vh;
     padding-top: 10px;
-    /* display: flex;
-    flex-direction: column;
-    justify-content: center; */
 }
 
 .sidebar-item {
@@ -22,14 +19,19 @@
 .sidebar-item:hover {
     background-color: rgba(230, 206, 160, 0.2);
     cursor: pointer;
+    transform: scale(1.1);
 }
 
 .logo {
     background-image: url(../assets/full-game-logo.svg);
     background-size: contain;
     background-repeat: no-repeat;
-    width: 150px;
     height: 100px;
+    background-size: contain;
+    background-position-y: center;
+    background-position-x: center;
+    background-repeat: no-repeat;
+    width: 100%;
     margin: 0 auto;
 }
 
