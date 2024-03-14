@@ -1,5 +1,6 @@
 import { Form, FormGroup, Label, Input, Button } from "reactstrap";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 interface Props {
   changeForm: () => void;
@@ -40,7 +41,9 @@ function LoginBox({ changeForm }: Props) {
           onChange={changePassword}
         />
       </FormGroup>
-      <Button style={{backgroundColor: "#0090AB", border: "none"}} children="Log in"></Button>
+      <Link to='/'>
+        <Button style={{backgroundColor: "#0090AB", border: "none"}} children="Log in"></Button>
+      </Link>
       <a href="#" onClick={changeForm} style={{marginLeft: "10px"}}>
           Sign up
       </a>

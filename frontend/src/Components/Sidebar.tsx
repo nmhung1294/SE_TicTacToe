@@ -1,20 +1,30 @@
 import "./Sidebar.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Link, Routes, Route, BrowserRouter, Router } from "react-router-dom";
 import { Nav, NavItem, NavLink } from 'reactstrap';
+import Home from "../Home/Home";
+import Play from "../Play/Play";
 
 const Sidebar = () => {
   return (
+    
     <div className="sidebar">
-      <div className="logo">
-      </div>
-      <div className="nav-play sidebar-item">
-      </div>
+      
+      <Link to="/">
+        <div className="logo"></div>
+      </Link>
+      <Link to='/play'>
+        <div className="nav-play sidebar-item"></div>
+      </Link>
+
       <div className="nav-leaderboards sidebar-item">
       </div>
       <div className="nav-account sidebar-item">
       </div>
-      <div className="nav-settings sidebar-item">
-      </div>
+      <Link to='/settings'>
+        <div className="nav-settings sidebar-item"></div>
+      </Link>
+
     </div>
   );
 };
