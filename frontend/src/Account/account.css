@@ -1,0 +1,16 @@
+.account-page {
+  position: fixed;
+  display: flex;
+  flex-direction: row;
+  background-color: #abadb9;
+  width: 100%;
+}
+
+.main-content {
+  position: absolute;
+  left: 11vw;
+  width: 89vw;
+  padding-left: 3vw;
+  padding-right: 3vw;
+  user-select: none;
+}
