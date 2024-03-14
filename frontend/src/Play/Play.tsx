@@ -352,7 +352,7 @@ function Play() {
         <div className="playpage">
             <Sidebar />
             <Signout />
-            <div className="main-content">
+            <div className="main-content-play">
                 <div className="main-board">
                     <Board></Board>
                 </div>

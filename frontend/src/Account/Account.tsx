@@ -1,6 +1,6 @@
 import "./account.css";
 import Sidebar from "../Components/Sidebar";
-import SignOut from "../Components/SignOut";
+import Signout from "../Components/Signout";
 import Info from "./Info";
 import Edit from "./Edit";
 import Avatar from "./Avatar";
@@ -54,10 +54,12 @@ function Account() {
   return (
     <div className="account-page">
       <Sidebar></Sidebar>
-      <div className="main-content">
-        <SignOut></SignOut>
-        <div style={{ alignSelf: "center", paddingTop: "40px" }}>
+      <Signout></Signout>
+      <div className="main-content-account">
+          <div style={{display: "flex", flexDirection: "row", alignItems: "center"}}>
           <Avatar></Avatar>
+          <h1>Name</h1>
+          </div>
           <div style={{ paddingTop: "20px" }}>
             {Navi()}
             <div
@@ -81,7 +83,6 @@ function Account() {
           </div>
         </div>
       </div>
-    </div>
   );
 }
 

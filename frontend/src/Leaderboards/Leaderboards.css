@@ -2,14 +2,15 @@
   position: fixed;
   display: flex;
   flex-direction: row;
-  background-color: #abadb9;
+  background-color: #e6cea0;
   width: 100%;
 }
 
-.main-content {
+.main-content-leaderboard {
   position: absolute;
   left: 11vw;
   width: 89vw;
+  margin-top: 10vh;
   padding-left: 3vw;
   padding-right: 3vw;
   user-select: none;
@@ -51,7 +52,6 @@
   grid-column-gap: 60px;
   justify-content: center;
   user-select: none;
-  padding-top: 60px;
 }
 
 .rows {
@@ -80,8 +80,6 @@
 .rows.borderless:last-child {
   border-bottom-right-radius: 20px;
 }
-
-
 
 .sign-out:hover {
   cursor: pointer;

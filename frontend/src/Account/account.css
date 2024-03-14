@@ -2,14 +2,15 @@
   position: fixed;
   display: flex;
   flex-direction: row;
-  background-color: #abadb9;
+  background-color: #E6CEA0;
   width: 100%;
 }
 
-.main-content {
+.main-content-account {
   position: absolute;
   left: 11vw;
   width: 89vw;
+  margin-top: 7vh;
   padding-left: 3vw;
   padding-right: 3vw;
   user-select: none;

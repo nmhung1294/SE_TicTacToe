@@ -2,8 +2,7 @@ import Sidebar from "../Components/Sidebar";
 import TopPlayer from "./TopPlayer";
 import "./Leaderboards.css";
 import PlayerBoard from "./PlayerBoard";
-import SignOut from "../Components/SignOut";
-
+import Signout from "../Components/Signout";
 function Leaderboard() {
   const allPlayers = [
     {
@@ -17,8 +16,8 @@ function Leaderboard() {
   return (
     <div className="leaderboard">
       <Sidebar></Sidebar>
-      <div className="main-content">
-        <SignOut></SignOut>
+      <Signout></Signout>
+      <div className="main-content-leaderboard">
         <TopPlayer players={allPlayers.slice(0, 3)}></TopPlayer>
         <PlayerBoard allPlayers={allPlayers}></PlayerBoard>
       </div>

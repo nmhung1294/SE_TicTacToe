@@ -1,6 +1,6 @@
 import { Form, FormGroup, Label, Input, Button } from "reactstrap";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import Warning from "../Components/Warning";
 
 interface Props {
   changeForm: () => void;
@@ -9,6 +9,7 @@ interface Props {
 function LoginBox({ changeForm }: Props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [failure, setFailure] = useState(false);
 
   const changeEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
@@ -18,11 +19,21 @@ function LoginBox({ changeForm }: Props) {
   };
 
   const handleSubmit = () => {
-    console.log(email, password);
+    if (email === "admin" && password === "admin") {
+      window.location.href = "/";
+    } else {
+      setFailure(true);
+    }
   };
 
   return (
     <Form>
+      <Warning
+        color="danger"
+        content="Invalid email or password"
+        visible={failure}
+        setVisible={() => setFailure(false)}
+      ></Warning>
       <FormGroup className="form-group">
         <Label className="label">Email</Label>
         <Input
@@ -41,11 +52,13 @@ function LoginBox({ changeForm }: Props) {
           onChange={changePassword}
         />
       </FormGroup>
-      <Link to='/'>
-        <Button style={{backgroundColor: "#0090AB", border: "none"}} children="Log in"></Button>
-      </Link>
-      <a href="#" onClick={changeForm} style={{marginLeft: "10px"}}>
-          Sign up
+      <Button
+        style={{ backgroundColor: "#0090AB", border: "none" }}
+        children="Log in"
+        onClick={handleSubmit}
+      ></Button>
+      <a href="#" onClick={changeForm} style={{ marginLeft: "10px" }}>
+        Sign up
       </a>
     </Form>
   );
