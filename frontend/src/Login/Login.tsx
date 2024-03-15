@@ -1,33 +1,25 @@
+import React from "react";
 import "./Login.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import LoginBox from "./LoginBox";
 import SignUp from "./SignUp";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Button } from "reactstrap";
 
 function Login() {
-  let numState = 2;
-  const [state, changeState] = useState(0);
-  const handleClick = () => {
-    changeState((state + 1) % numState);
-  };
-  // const navigate = useNavigate();
- 
-  // const homePage = () => {
-  //     navigate("/home")
-  // }
+  const [state, changeState] = useState("/login");
+  const toLogin = () => changeState("/login");
+  const toSignUp = () => changeState("/signup");
 
   return (
     <div className="login-page">
       <div className="header"></div>
-      {state === 0 ? (
+      {state === "/login" ? (
         <div className="login">
-          <LoginBox changeForm={handleClick}></LoginBox>
+          <LoginBox changeForm={toSignUp}></LoginBox>
         </div>
       ) : (
         <div className="sign-up">
-          <SignUp changeForm={handleClick}></SignUp>
+          <SignUp changeForm={toLogin}></SignUp>
         </div>
       )}
     </div>

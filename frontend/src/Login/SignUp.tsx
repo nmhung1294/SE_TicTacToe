@@ -1,7 +1,8 @@
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { Form, FormGroup, Label, Input, Button } from "reactstrap";
 import Warning from "../Components/Warning";
-import Password from "../Account/Password";
+import axios from "axios";
 
 interface Props {
   changeForm: () => void;
@@ -9,6 +10,7 @@ interface Props {
 
 function SignUp({ changeForm }: Props) {
   const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [success, setSuccess] = useState(false);
@@ -17,6 +19,9 @@ function SignUp({ changeForm }: Props) {
 
   const changeEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
+  };
+  const changeUsername = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setUsername(event.target.value);
   };
   const changePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value);
@@ -30,6 +35,22 @@ function SignUp({ changeForm }: Props) {
     if (password !== confirmPassword) {
       setWarning1(true);
       return;
+    } else {
+      useEffect(() => {
+        axios
+          .post("http://localhost:8000/signup", {
+            username: username,
+            email: email,
+            password: password,
+          })
+          .then((response) => {
+            response.status === 201 ? setSuccess(true) : null;
+          })
+          .catch((error) => {
+            setWarning2(true);
+            console.error(error);
+          });
+      }, [username, email, password]);
     }
   };
 
@@ -49,7 +70,7 @@ function SignUp({ changeForm }: Props) {
       ></Warning>
       <Warning
         color="danger"
-        content="Invalid email"
+        content="Invalid email or username"
         visible={warning2}
         setVisible={() => setWarning2(false)}
       ></Warning>
@@ -60,6 +81,15 @@ function SignUp({ changeForm }: Props) {
           className="input"
           value={email}
           onChange={changeEmail}
+        />
+      </FormGroup>
+      <FormGroup className="form-group">
+        <Label className="label">Username</Label>
+        <Input
+          type="text"
+          className="input"
+          value={username}
+          onChange={changeUsername}
         />
       </FormGroup>
       <FormGroup className="form-group">

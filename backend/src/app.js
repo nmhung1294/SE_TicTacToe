@@ -5,7 +5,6 @@ import cors from "cors";
 import dotenv from "dotenv";
 dotenv.config();
 
-
 const PORT = 8000;
 const app = express();
 const server = createServer(app);
@@ -16,7 +15,6 @@ const io = new Server(server, {
     credentials: true,
   },
 });
-
 
 //Import routers
 import loginRouter from "../routes/loginRouter.js";
@@ -42,7 +40,7 @@ io.on("connection", (socket) => {
   handleGameInvitation(socket, io);
   handleFriendInvitation(socket, io);
 });
-
+app.use(cors());
 //use routers
 app.use("/login", loginRouter);
 app.use("/signup", signupRouter);
@@ -51,4 +49,3 @@ app.use("/profile", profileRouter);
 server.listen(PORT, () => {
   console.log(`Server is running on PORT ${PORT}`);
 });
-

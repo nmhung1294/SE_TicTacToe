@@ -1,29 +1,40 @@
+import React from "react";
 import { Form, FormGroup, Label, Input, Button } from "reactstrap";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Warning from "../Components/Warning";
+import axios from "axios";
 
 interface Props {
   changeForm: () => void;
 }
 
 function LoginBox({ changeForm }: Props) {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [failure, setFailure] = useState(false);
 
-  const changeEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(event.target.value);
+  const changeUsername = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setUsername(event.target.value);
   };
   const changePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value);
   };
 
   const handleSubmit = () => {
-    if (email === "admin" && password === "admin") {
-      window.location.href = "/";
-    } else {
-      setFailure(true);
-    }
+    useEffect(() => {
+      axios
+        .post("http://localhost:8000/login", {
+          username: username,
+          password: password,
+        })
+        .then((response) => {
+          response.status === 200 ? (window.location.href = "/") : null;
+        })
+        .catch((error) => {
+          setFailure(true);
+          console.error(error);
+        });
+    }, [username, password]);
   };
 
   return (
@@ -35,12 +46,12 @@ function LoginBox({ changeForm }: Props) {
         setVisible={() => setFailure(false)}
       ></Warning>
       <FormGroup className="form-group">
-        <Label className="label">Email</Label>
+        <Label className="label">Username</Label>
         <Input
-          type="email"
+          type="text"
           className="input"
-          value={email}
-          onChange={changeEmail}
+          value={username}
+          onChange={changeUsername}
         />
       </FormGroup>
       <FormGroup className="form-group">
