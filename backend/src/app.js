@@ -32,9 +32,12 @@ import handleNewChat from "../socketHandlers/chatHandler.js";
 import handleGameInvitation from "../socketHandlers/gameInvitationHandler.js";
 import handleFriendInvitation from "../socketHandlers/friendInvitationHandler.js";
 
+//Intialization array waitingPlayer
+let waitingPlayer = [];
+
 //Socket handlers
 io.on("connection", (socket) => {
-  handleConnection(socket, io);
+  handleConnection(socket, io, waitingPlayer);
   handleJoinRoom(socket, io);
   handleMakeMove(socket, io);
   handleDisconnection(socket, io);
