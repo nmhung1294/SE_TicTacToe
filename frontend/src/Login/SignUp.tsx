@@ -31,26 +31,24 @@ function SignUp({ changeForm }: Props) {
   ) => {
     setConfirmPassword(event.target.value);
   };
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (password !== confirmPassword) {
       setWarning1(true);
       return;
     } else {
-      useEffect(() => {
-        axios
-          .post("http://localhost:8000/signup", {
-            username: username,
-            email: email,
-            password: password,
-          })
-          .then((response) => {
-            response.status === 201 ? setSuccess(true) : null;
-          })
-          .catch((error) => {
-            setWarning2(true);
-            console.error(error);
-          });
-      }, [username, email, password]);
+      axios
+        .post("http://localhost:8000/signup", {
+          username: username,
+          email: email,
+          password: password,
+        })
+        .then((response) => {
+          response.status === 201 ? setSuccess(true) : null;
+        })
+        .catch((error) => {
+          setWarning2(true);
+          console.error(error);
+        });
     }
   };
 

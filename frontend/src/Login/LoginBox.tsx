@@ -20,8 +20,7 @@ function LoginBox({ changeForm }: Props) {
     setPassword(event.target.value);
   };
 
-  const handleSubmit = () => {
-    useEffect(() => {
+  const handleSubmit = async () => {
       axios
         .post("http://localhost:8000/login", {
           username: username,
@@ -34,7 +33,6 @@ function LoginBox({ changeForm }: Props) {
           setFailure(true);
           console.error(error);
         });
-    }, [username, password]);
   };
 
   return (
