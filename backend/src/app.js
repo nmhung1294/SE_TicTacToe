@@ -21,6 +21,7 @@ const io = new Server(server, {
 import loginRouter from "../routes/loginRouter.js";
 import signupRouter from "../routes/signupRouter.js";
 import profileRouter from "../routes/profileRouter.js";
+import leaderboardRouter from "../routes/leaderBoardRouter.js";
 
 //Import socket handlers
 import handleConnection from "../socketHandlers/connectionHandler.js";
@@ -46,6 +47,7 @@ io.on("connection", (socket) => {
 app.use("/login", loginRouter);
 app.use("/signup", signupRouter);
 app.use("/profile", profileRouter);
+app.use("/leaderboard", leaderboardRouter);
 
 //use cors
 app.use(cors(process.env.FRONTEND_URL));
