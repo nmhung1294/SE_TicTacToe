@@ -4,6 +4,7 @@ import pool from "../config/db.js";
 const router = express.Router();
 router.use(express.json());
 
+
 router.route("/signup").post((req, res) => {
   const { email, username, password } = req.body;
   
@@ -25,6 +26,7 @@ router.route("/signup").post((req, res) => {
             } else {
               res.status(201).json({ message: "Signup successful", data: result.rows });
             }
+
           }
         );
       }

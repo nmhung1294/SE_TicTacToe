@@ -9,13 +9,15 @@ dotenv.config();
 const PORT = 8000;
 const app = express();
 const server = createServer(app);
+app.use(cors({ origin: process.env.FRONTEND_URL, credentials: true }));
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:3000",
-    methods: ["GET", "POST"],
+    origin: process.env.FRONTEND_URL,
+    methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   },
 });
+
 
 //Import routers
 import loginRouter from "../routes/loginRouter.js";
@@ -47,21 +49,7 @@ app.use("/login", loginRouter);
 app.use("/signup", signupRouter);
 app.use("/profile", profileRouter);
 
-//use cors
-app.use(cors(process.env.FRONTEND_URL));
 server.listen(PORT, () => {
   console.log(`Server is running on PORT ${PORT}`);
 });
 
-import pool from "../config/db.js";
-
-pool.query("SELECT * FROM users", (err, res) => {
-  if (err) {
-    console.log(err.stack);
-    console.log("failed!");
-  }
-  else {
-    console.log(res.rows);
-    console.log("success!")
-  }
-});
