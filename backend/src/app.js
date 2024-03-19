@@ -25,18 +25,19 @@ import signupRouter from "../routes/signupRouter.js";
 import profileRouter from "../routes/profileRouter.js";
 
 //Import socket handlers
-import handleConnection from "../socketHandlers/connectionHandler.js";
-import handleJoinRoom from "../socketHandlers/joinRoomHandler.js";
+import handleHandshake from "../socketHandlers/handShakeHandler.js";
 import handleMakeMove from "../socketHandlers/makeMoveHandler.js";
 import handleDisconnection from "../socketHandlers/disconnectionHandler.js";
 import handleNewChat from "../socketHandlers/chatHandler.js";
 import handleGameInvitation from "../socketHandlers/gameInvitationHandler.js";
 import handleFriendInvitation from "../socketHandlers/friendInvitationHandler.js";
 
+//Intialization map waitingPlayer
+const waitingPlayer = new Map();
+
 //Socket handlers
 io.on("connection", (socket) => {
-  handleConnection(socket, io);
-  handleJoinRoom(socket, io);
+  handleHandshake(socket, io, waitingPlayer);
   handleMakeMove(socket, io);
   handleDisconnection(socket, io);
   handleNewChat(socket, io);
@@ -53,3 +54,4 @@ server.listen(PORT, () => {
   console.log(`Server is running on PORT ${PORT}`);
 });
 
+export {waitingPlayer}
