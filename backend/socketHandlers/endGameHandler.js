@@ -25,3 +25,10 @@ export default async function handleEndGame(socket, io, roomData, roomCode, winn
             io.to(roomCode).emit('endgame', {winner: winner_username});
         }
 };
+
+//Hàm này xử lý sự kiện kết thúc game 
+
+//Cập nhật số trận thắng, elo của người thắng vào database dòng 13-14
+//Cập nhật thông tin số trận đấu của 2 người chơi vào database dòng 15-16
+//Phần dưới: thêm thông tin về trận đấu vào bảng gamehistory
+//Gửi về sự kiện endgame với thông tin người chiến thắng

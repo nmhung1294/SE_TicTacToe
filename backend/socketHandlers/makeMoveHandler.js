@@ -16,3 +16,5 @@ export default function handleMakeMove(socket, io, roomData) {
             }
     });
 };
+
+// Gửi về phòng thông tin về lượt đi tiếp theo và thời gian còn lại của người chơi

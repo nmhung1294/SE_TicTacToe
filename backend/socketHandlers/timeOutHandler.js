@@ -10,3 +10,7 @@ export default function handleTimeOut(socket, io, roomData) {
         }
     });
 }
+
+
+//Hàm này xử lý khi một người chơi hết thời gian
+// Gọi function endGame để xử lý kết thúc game
