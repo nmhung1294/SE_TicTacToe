@@ -1,7 +1,8 @@
 import express from "express";
-import pool from "../config/db.js";
+import { getProfile } from "../controllers/profileController.js";
 
 const router = express.Router();
+
 
 router.route("/:id").get((req, res) => {
   const { id } = req.params;
@@ -23,6 +24,7 @@ router.route("/:id").get((req, res) => {
 }).put((req, res) => {
   const { id } = req.params;
   const { email, username, password } = req.body;
+
 
   pool.query(
     "UPDATE users SET email = $1, username = $2, password = $3 WHERE id = $4 RETURNING *;",
