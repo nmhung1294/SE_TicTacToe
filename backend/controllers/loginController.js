@@ -32,7 +32,7 @@ const loggingIn = wrapper(async (req, res) => {
             sameSite: "None",
             httpOnly: false,
             secure: true,
-            expires: new Date(Date.now() + 1000 * 60 * 60),
+            expires: new Date(Date.now() + 24 * 1000 * 60 * 60),
           })
           .send({ message: "login successfully", id: result.rows[0].id });
       }
