@@ -51,7 +51,6 @@ io.on("connection", (socket) => {
 });
 
 //use routers
-
 app.use("/login", loginRouter);
 app.use("/signup", signupRouter);
 app.use(authenticateMiddleware);
