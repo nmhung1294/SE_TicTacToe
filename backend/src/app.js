@@ -9,7 +9,7 @@ dotenv.config();
 const PORT = 8000;
 const app = express();
 const server = createServer(app);
-app.use(cors({origin: process.env.FRONTEND_URL, credentials: true}));
+app.use(cors({ origin: process.env.FRONTEND_URL, credentials: true }));
 const io = new Server(server, {
   cors: {
     origin: process.env.FRONTEND_URL,
