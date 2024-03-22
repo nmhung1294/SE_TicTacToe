@@ -27,8 +27,6 @@ import profileRouter from "../routes/profileRouter.js";
 //Import socket handlers
 import handleHandshake from "../socketHandlers/handShakeHandler.js";
 import handleMakeMove from "../socketHandlers/makeMoveHandler.js";
-import handleDisconnection from "../socketHandlers/disconnectionHandler.js";
-import handleNewChat from "../socketHandlers/chatHandler.js";
 import handleGameInvitation from "../socketHandlers/gameInvitationHandler.js";
 import handleFriendInvitation from "../socketHandlers/friendInvitationHandler.js";
 
@@ -39,8 +37,6 @@ const waitingPlayer = new Map();
 io.on("connection", (socket) => {
   handleHandshake(socket, io, waitingPlayer);
   handleMakeMove(socket, io);
-  handleDisconnection(socket, io);
-  handleNewChat(socket, io);
   handleGameInvitation(socket, io);
   handleFriendInvitation(socket, io);
 });
