@@ -1,4 +1,4 @@
-export default function gameStart(socket, io, roomId){
+export default function gameStart(socket, io, roomData, roomId){
 
-    io.to(roomId).emit('game start');
+    io.in(roomId).emit('game start');
 }

@@ -1,6 +1,7 @@
 import gameStart from "./gameStartHandler.js";
+import handleTick from "./tickHandler.js";
 
-export default function emitJoinRoom(socket, io, roomData, roomId, player1Id, player2Id, data1, data2) {
+export default function emitJoinRoom(io, roomData, roomId, player1Socket, player2Socket, data1, data2) {
     roomData.set(roomId, {
         player1_username: data1.username,
         player2_username: data2.username,
@@ -10,7 +11,7 @@ export default function emitJoinRoom(socket, io, roomData, roomId, player1Id, pl
         player2_timer: 0,
     });
 
-    io.to(player1Id).emit('join room', {
+    player1Socket.emit('join room', {
         room_id: roomId,
         side: "X",
         opponent:  {
@@ -19,7 +20,7 @@ export default function emitJoinRoom(socket, io, roomData, roomId, player1Id, pl
         }
     });
 
-    io.to(player2Id).emit('join room', {
+    player2Socket.emit('join room', {
         room_id: roomId,
         side: "O",
         opponent: {
@@ -27,7 +28,9 @@ export default function emitJoinRoom(socket, io, roomData, roomId, player1Id, pl
             elo: data1.elo,
         }
     });
-    gameStart(socket,io,roomData, roomId);
-    handleTick(socket,io, roomData, roomId);
+    
+    gameStart(player1Socket, io, roomData, roomId);
+    handleTick(io, player1Socket, roomData)
+    handleTick(io, player2Socket, roomData)
 };
 

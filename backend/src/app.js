@@ -24,19 +24,18 @@ import profileRouter from "../routes/profileRouter.js";
 
 //Import socket handlers
 import handleHandshake from "../socketHandlers/handShakeHandler.js";
-import handleMakeMove from "../socketHandlers/makeMoveHandler.js";
-import handleGameInvitation from "../socketHandlers/gameInvitationHandler.js";
-import handleFriendInvitation from "../socketHandlers/friendInvitationHandler.js";
+import handleMakeMove from "../socketHandlers/nextMoveHandler.js";
+
 
 //Intialization map waitingPlayer
 const waitingPlayer = new Map();
+//Intialization map roomData
+const roomData = new Map();
 
 //Socket handlers
 io.on("connection", (socket) => {
   handleHandshake(socket, io, waitingPlayer);
   handleMakeMove(socket, io);
-  handleGameInvitation(socket, io);
-  handleFriendInvitation(socket, io);
 });
 app.use(cors());
 //use routers
@@ -49,5 +48,5 @@ server.listen(PORT, () => {
 });
 
 
-export {waitingPlayer}
+export {waitingPlayer, roomData}
 
