@@ -6,6 +6,10 @@ import Sidebar from "../Components/Sidebar";
 import Signout from "../Components/Signout";
 import { useLocation } from "react-router-dom";
 
+
+
+
+
 const X = 'cell-x'
 const O = 'cell-o'
 const X_WIN = 'cell-x-win'
@@ -25,6 +29,42 @@ let resetGame = false;
 const setResetGame = (status: boolean) => {
     resetGame = status;
 }
+
+//SOCKET: create socket, send handshake event
+import { io }  from "socket.io-client";
+const socket = io("http://localhost:8000");
+
+//room information
+let roomID = "";
+//===================
+
+socket.on('join room', (data) => {
+    console.log(data);
+    //store room's information
+    roomID = data.room_id;
+})
+socket.on('game start', () => {
+    console.log("-> Game start");
+    endGame = false;
+})
+socket.on('tick', () => {
+    console.log("-> Tick");
+})
+socket.on('next move', () => {
+    console.log("-> Next move");
+})
+socket.on('time out', () => {
+    console.log("-> Time out");
+})
+socket.on('end game', () => {
+    console.log("-> End game");
+})
+socket.on('chat', (data) => {
+    console.log(data);
+})
+//===================
+
+
 
 const checkLogic = (board: any, row: number, col: number, board_size: number) => {
     let returnValue = {
@@ -326,17 +366,23 @@ function Play() {
     const {state} = useLocation()
     const [showDiv, setShowDiv] = useState(state);
 
-    const handlePlayBtn = () => {
+    const handlePlayOnlineBtn = () => {
         setIndex(0);
         setShowDiv(true);
+        socket.emit('handshake', {
+            username: "NQH",
+            elo: 2000
+        })
     };
 
-    const handlePlayWithFriendBtn = () => {
+    const handlePlayOfflineBtn = () => {
         setGameStatus(!endGame);
+
     };
 
     const handleCancelBtn = () => {
         setShowDiv(false)
+        socket.emit('cancel play online')
     }
 
     useEffect(() => {
@@ -358,9 +404,9 @@ function Play() {
                 </div>
                 
                 <div className="play">
-                    <Button className="play-btn play-now" children="Play" onClick={handlePlayBtn}></Button>
+                    <Button className="play-btn play-now" children="Play Online" onClick={handlePlayOnlineBtn}></Button>
                     
-                    <Button className="play-btn play-with-friend" children="Play offline" onClick={handlePlayWithFriendBtn}></Button>
+                    <Button className="play-btn play-with-friend" children="Play offline" onClick={handlePlayOfflineBtn}></Button>
                 </div>
                 {showDiv && <Waiting waitSentence={options[index]} onClick={handleCancelBtn}/>}
             </div>
