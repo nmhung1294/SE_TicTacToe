@@ -53,10 +53,10 @@ export default function handleTick(io, socket, roomData) {
           count++;
         }
         if (count == 5) {
-          return true;
+          return { haveWinner: true, winner: username };
         }
       }
-      return false;
+      return { haveWinner: false, winner: null };
     }
 
     let character = "";
@@ -70,7 +70,7 @@ export default function handleTick(io, socket, roomData) {
 
     let check = checkWin(coordinate.x, coordinate.y, character, board);
 
-    if (check == true) {
+    if (check.haveWinner) {
       io.to(room_id).emit("end game");
     } else {
       io.to(room_id).emit("next move");

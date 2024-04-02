@@ -1,8 +1,15 @@
-export default function handleDisconnection(socket, io, player1, player2, roomData) {
+export default function handleDisconnection(socket, io, player1, player2, roomData, waitingPlayer) {
   socket.on('disconnect', () => {
     console.log(`User ${socket.id} has disconnected.`);
 
     const index = socket.id;
+
+    //If a player is out while waiting for an opponent
+    if(waitingPlayer.has(index)){
+      waitingPlayer.delete(index);
+      console.log(`Player ${index} removed from waiting list.`);
+    }
+
     let playerOut = '';
     if (index === player1.key) {
       playerOut = player1.value.username;
