@@ -25,6 +25,7 @@ import profileRouter from "../routes/profileRouter.js";
 //Import socket handlers
 import handleHandshake from "../socketHandlers/handShakeHandler.js";
 import handleMakeMove from "../socketHandlers/nextMoveHandler.js";
+import handleCancelPlayOnline from "../socketHandlers/cancelPlayOnline.js";
 
 
 //Intialization map waitingPlayer
@@ -36,6 +37,7 @@ const roomData = new Map();
 io.on("connection", (socket) => {
   handleHandshake(socket, io, waitingPlayer);
   handleMakeMove(socket, io);
+  handleCancelPlayOnline(socket, io);
 });
 app.use(cors());
 //use routers
