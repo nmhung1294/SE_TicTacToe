@@ -45,16 +45,8 @@ export default function handleHandshake(socket, io, waitingPlayer) {
 
       //console.log(`Room ${roomId} created. Players ${player1SocketId} and ${player2SocketId} joined.`);
 
-      emitJoinRoom(
-        io,
-        roomData,
-        roomId,
-        player1Socket,
-        player2Socket,
-        data1,
-        data2
-      );
-      handleDisconnection(socket, io, player1, player2, roomData);
+      emitJoinRoom(io, roomData, roomId, player1Socket, player2Socket, data1, data2);
+      handleDisconnection(socket, io, player1, player2, roomData, waitingPlayer);
     } else {
       console.log("Waiting for more players...");
     }
