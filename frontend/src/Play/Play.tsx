@@ -67,15 +67,12 @@ socket.on('tick', (data) => {
 
     if (data.username != username) {
         console.log("-> Tick");
-        currentTurn = currentTurn == 'X' ? 'O' : 'X';
-        let id = '#cell-' + data.coordinate.y + '-' + data.coordinate.x;
+        let id = '#cell-' + data.coordinate.x + '-' + data.coordinate.y;
         let clickedCell = document.querySelector(id) as HTMLElement;
         if (clickedCell) {
-            console.log(currentTurn)
-            console.log('cell clicked!')
-            clickedCell.click();
+            clickedCell.classList.add(playerSide == 'X' ? O : X);    
+            currentTurn = currentTurn == 'X' ? 'O' : 'X';
         }
-        currentTurn = currentTurn == 'X' ? 'O' : 'X';
     }
 })
 socket.on('next move', () => {
@@ -209,6 +206,7 @@ const Board = () => {
     let isCurrentCellX = currentTurn == 'X' ? true : false;
     const [grid, setGrid] = useState(() => Array.from({ length: BOARD_SIZE }, () => Array(BOARD_SIZE).fill('')));
     let isPlayerInTurn = playerSide == currentTurn ? true : false;
+    console.log('isPlayerInTurn', isPlayerInTurn)
     console.log('playerSide: ', playerSide)
     console.log('currentTurn: ', currentTurn)
 
