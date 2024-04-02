@@ -10,6 +10,10 @@ export default function handleHandshake(socket, io, waitingPlayer) {
 
     waitingPlayer.set(socket.id, data);
 
+    waitingPlayer.forEach((value, key) => {
+      console.log(`+ ${value.username}`);
+    });
+
     function shiftFirstEntry(map) {
       const iterator = map.entries();
       const firstEntry = iterator.next().value;

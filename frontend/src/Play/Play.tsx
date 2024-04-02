@@ -8,12 +8,14 @@ import { useLocation } from "react-router-dom";
 
 
 
-
+//Set up initial data for game
 
 const X = 'cell-x'
 const O = 'cell-o'
 const X_WIN = 'cell-x-win'
 const O_WIN = 'cell-o-win'
+let isPlayerSideX = true;
+let currentTurn = 'X'
 enum Direction {
     NO_DIRECTION,
     HORIZONTAL,
@@ -29,26 +31,52 @@ let resetGame = false;
 const setResetGame = (status: boolean) => {
     resetGame = status;
 }
-
-//SOCKET: create socket, send handshake event
+//================================
+//room information
+let roomID = "";
+let playerSide = 'X';
+let opponentSide = 'O';
+let temp = new Date().getSeconds();
+let username = 'player' + temp.toString();
+//================================
+//SOCKET: 
 import { io }  from "socket.io-client";
 const socket = io("http://localhost:8000");
 
-//room information
-let roomID = "";
-//===================
 
 socket.on('join room', (data) => {
     console.log(data);
     //store room's information
     roomID = data.room_id;
+    if (data.side == 'X') {
+        isPlayerSideX = true;
+        playerSide = 'X';
+        opponentSide = 'O';
+    } else {
+        isPlayerSideX = false;
+        playerSide = 'O';
+        opponentSide = 'X';
+    }
+
 })
 socket.on('game start', () => {
     console.log("-> Game start");
     endGame = false;
 })
-socket.on('tick', () => {
-    console.log("-> Tick");
+socket.on('tick', (data) => {
+
+    if (data.username != username) {
+        console.log("-> Tick");
+        currentTurn = currentTurn == 'X' ? 'O' : 'X';
+        let id = '#cell-' + data.coordinate.y + '-' + data.coordinate.x;
+        let clickedCell = document.querySelector(id) as HTMLElement;
+        if (clickedCell) {
+            console.log(currentTurn)
+            console.log('cell clicked!')
+            clickedCell.click();
+        }
+        currentTurn = currentTurn == 'X' ? 'O' : 'X';
+    }
 })
 socket.on('next move', () => {
     console.log("-> Next move");
@@ -63,7 +91,26 @@ socket.on('chat', (data) => {
     console.log(data);
 })
 //===================
+//Function for handling socket event
+const sendTick = (grid: any, x_coord: number, y_coord: number) => {
+    let formattedTime = document.querySelector('.player-2.timer')?.textContent;
+    let splittedFormattedTime = formattedTime?.split(':');
+    let rawTime = splittedFormattedTime ? parseInt(splittedFormattedTime[0]) * 60 + parseInt(splittedFormattedTime[1]) : 0;
 
+
+    socket.emit('tick', {
+        room_id: roomID,
+        username: username,
+        board: grid,
+        time_count: rawTime,
+        coordinate: {
+            x: x_coord,
+            y: y_coord
+        }
+    })
+}
+
+//===================
 
 
 const checkLogic = (board: any, row: number, col: number, board_size: number) => {
@@ -155,21 +202,29 @@ const checkLogic = (board: any, row: number, col: number, board_size: number) =>
 }
 
 const Board = () => {
+
     const BOARD_SIZE = 25;
     const TIME = 120;
     const [clickedCell, setClickedCell] = useState<string>('');
-    const [cellX, setCellX] = useState<boolean>(true);
+    let isCurrentCellX = currentTurn == 'X' ? true : false;
     const [grid, setGrid] = useState(() => Array.from({ length: BOARD_SIZE }, () => Array(BOARD_SIZE).fill('')));
-    const [player, setPlayer] = useState(true);
+    let isPlayerInTurn = playerSide == currentTurn ? true : false;
+    console.log('playerSide: ', playerSide)
+    console.log('currentTurn: ', currentTurn)
+
 
     const handleCellClick = (row: number, col: number) => {
+        console.log("clicked")
         const clickedCellKey = `${row}-${col}`;
         setClickedCell(clickedCellKey);
-        const cellChecking = document.getElementById(clickedCellKey);
+        const cellChecking = document.getElementById('cell-' + clickedCellKey);
         if (cellChecking && cellChecking.classList.contains('clicked')
-            && !cellChecking.classList.contains(X) && !cellChecking.classList.contains(O) && !endGame) {
+            && !cellChecking.classList.contains(X) && !cellChecking.classList.contains(O) && !endGame && isPlayerInTurn) {
+            // console.log('clicked')
+
+            sendTick(grid, row, col);
             let updatedGrid = [...grid];
-            if (cellX) {
+            if (isCurrentCellX) {
                 updatedGrid[row][col] = X;
             } else {
                 updatedGrid[row][col] = O;
@@ -182,7 +237,7 @@ const Board = () => {
                         {
                             for (let idx = 0; idx < resultLogic['value'].length; idx++) {
                                 let i = resultLogic['value'][idx];
-                                updatedGrid[row][i] += ` ${cellX ? X_WIN : O_WIN}`;
+                                updatedGrid[row][i] += ` ${isCurrentCellX ? X_WIN : O_WIN}`;
                             }
                             break;
                         }
@@ -190,7 +245,7 @@ const Board = () => {
                         {
                             for (let idx = 0; idx < resultLogic['value'].length; idx++) {
                                 let i = resultLogic['value'][idx];
-                                updatedGrid[i][col] += ` ${cellX ? X_WIN : O_WIN}`;
+                                updatedGrid[i][col] += ` ${isCurrentCellX ? X_WIN : O_WIN}`;
                             }
                             break;
                         }
@@ -198,7 +253,7 @@ const Board = () => {
                         {
                             for (let idx = 0; idx < resultLogic['value'].length; idx++) {
                                 let i = resultLogic['value'][idx];
-                                updatedGrid[i][i + col - row] += ` ${cellX ? X_WIN : O_WIN}`;
+                                updatedGrid[i][i + col - row] += ` ${isCurrentCellX ? X_WIN : O_WIN}`;
                             }
                             break;
                         }
@@ -206,7 +261,7 @@ const Board = () => {
                         {
                             for (let idx = 0; idx < resultLogic['value'].length; idx++) {
                                 let i = resultLogic['value'][idx];
-                                updatedGrid[i][col + row - i] += ` ${cellX ? X_WIN : O_WIN}`;
+                                updatedGrid[i][col + row - i] += ` ${isCurrentCellX ? X_WIN : O_WIN}`;
                             }
                             break;
                         }
@@ -214,8 +269,8 @@ const Board = () => {
             }
             
             setGrid(updatedGrid);
-            setCellX(!cellX);
-            setPlayer(!player);
+            currentTurn = currentTurn == 'X' ? 'O' : 'X';
+            
         }
     };
 
@@ -227,7 +282,7 @@ const Board = () => {
                 const cellClassName = clickedCell === cellKey ? `cell clicked` : `cell`;
                 cells.push(
                 <div
-                    id={cellKey}
+                    id={`cell-${cellKey}`}
                     key={cellKey}
                     className={`${cellClassName} ${grid[row][col]}`}
                     onClick={() => handleCellClick(row, col)}
@@ -250,8 +305,8 @@ const Board = () => {
             
             <div className="two-player">
                 <Player type={O} opponent={true} username="Opponent" elo="?"></Player>
-                <Timer opponent={!player} player="player-1" time={TIME}/>
-                <Timer opponent={player} player="player-2" time={TIME}/>
+                <Timer isInTurn={!isPlayerInTurn} player="player-1" time={TIME}/>
+                <Timer isInTurn={isPlayerInTurn} player="player-2" time={TIME}/>
                 <Player type={X} opponent={false} username="NQH" elo="2000"></Player>
                         
             </div>
@@ -261,7 +316,7 @@ const Board = () => {
 };
 
 type TimerProps = {
-    opponent: boolean
+    isInTurn: boolean
     time: number
     player: string
 }
@@ -270,7 +325,7 @@ const Timer = (props: TimerProps) => {
     const [countdown, setCountdown] = useState(props.time * 100);
 
     useEffect(() => {
-        if (props.opponent) {
+        if (props.isInTurn) {
             const timer = setInterval(() => {
                 setCountdown((prevCountdown) => {
                     if (endGame || prevCountdown <= 0) {
@@ -285,7 +340,7 @@ const Timer = (props: TimerProps) => {
             clearInterval(timer);
             };
         }
-    }, [props.opponent, endGame]);
+    }, [props.isInTurn, endGame]);
 
     const formatTime = (time: number) => {
         const minutes = Math.floor(time / 6000);
@@ -298,7 +353,7 @@ const Timer = (props: TimerProps) => {
         return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}.${ticks.toString().padStart(2, '0')}`;
     };
     
-    const mode = props.opponent ? 'black-timer' : 'white-timer'
+    const mode = props.isInTurn ? 'black-timer' : 'white-timer'
 
     return (
         <div id={mode} className={`${mode} ${props.player} timer`}>
@@ -363,8 +418,7 @@ function Play() {
     
     const options = ['Finding opponent', 'Finding opponent.', 'Finding opponent..', 'Finding opponent...'];
     const [index, setIndex] = useState(0);
-    const {state} = useLocation()
-    const [showDiv, setShowDiv] = useState(state);
+    const [showDiv, setShowDiv] = useState(false);
 
     const handlePlayOnlineBtn = () => {
         setIndex(0);
@@ -376,7 +430,6 @@ function Play() {
     };
 
     const handlePlayOfflineBtn = () => {
-        setGameStatus(!endGame);
 
     };
 
