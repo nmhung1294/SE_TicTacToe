@@ -1,3 +1,3 @@
-const BACKEND_URL = "http://localhost:8000"
+const BACKEND_URL = "https://se-tiktactoe.onrender.com"
 
 export { BACKEND_URL}
