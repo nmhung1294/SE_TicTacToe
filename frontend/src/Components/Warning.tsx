@@ -15,7 +15,7 @@ function Warning({ color, content, visible, setVisible }: WarningProps) {
       {content}
     </Alert>
   ) : (
-    ""
+    <div></div>
   );
 }
 
