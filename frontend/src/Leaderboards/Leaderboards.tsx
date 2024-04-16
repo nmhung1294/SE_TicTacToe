@@ -4,9 +4,10 @@ import "./Leaderboards.css";
 import PlayerBoard from "./PlayerBoard";
 import Signout from "../Components/Signout";
 import axios from "axios";
+import { BACKEND_URL } from "../../constants";
 
 let playerData: any[];
-await axios.get("http://localhost:8000/leaderboard").then((res) => {
+await axios.get(`${BACKEND_URL}/leaderboard`).then((res) => {
   playerData = res.data.data;
   console.log(playerData);
 }).catch((err) => {

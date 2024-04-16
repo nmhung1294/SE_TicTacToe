@@ -7,7 +7,7 @@ import Signout from "../Components/Signout";
 import { useLocation } from "react-router-dom";
 import Cookies from "js-cookie";
 import axios from "axios";
-
+import { BACKEND_URL } from "../../constants";
 
 // Set a cookie
 
@@ -54,7 +54,7 @@ let opponentElo = "???";
 //================================
 //Fetch player information
 let token = Cookies.get("token");
-await axios.get("http://localhost:8000/profile", {
+await axios.get(`${BACKEND_URL}/profile`, {
     headers: {
         Authorization: `Bearer ${token}`,
     },
@@ -69,7 +69,7 @@ await axios.get("http://localhost:8000/profile", {
 
 //SOCKET:
 import { io } from "socket.io-client";
-const socket = io("http://localhost:8000");
+const socket = io(`${BACKEND_URL}`);
 
 socket.on("join room", (data) => {
     //store room's information

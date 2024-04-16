@@ -10,6 +10,7 @@ import {
 } from "reactstrap";
 import Warning from "../Components/Warning";
 import axios from "axios";
+import { BACKEND_URL } from "../../constants";
 
 function Password() {
     const [password, setPassword] = useState("");
@@ -24,7 +25,7 @@ function Password() {
         if (newPassword != "" && newPassword === rePassword) {
             console.log("changed");
             setSuccess(true);
-            axios.put("http://localhost:8000/profile/password", {
+            axios.put(`${BACKEND_URL}/profile/password`, {
                 password: newPassword,
             });
         } else {

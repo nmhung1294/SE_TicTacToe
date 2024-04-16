@@ -3,11 +3,12 @@ import { FormGroup, Label, Col, Input, Button } from "reactstrap";
 import Warning from "../Components/Warning";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { BACKEND_URL } from "../../constants";
 
 let token = Cookies.get("token"); 
 let player = { username: "a", email: "d" };
 await axios
-    .get("http://localhost:8000/profile", {
+    .get(`${BACKEND_URL}/profile`, {
         headers: {
             Authorization: `Bearer ${token}`,
         },

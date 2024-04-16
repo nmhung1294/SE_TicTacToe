@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Warning from "../Components/Warning";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { BACKEND_URL } from "../../constants";
 
 interface Props {
   changeForm: () => void;
@@ -14,6 +15,7 @@ function LoginBox({ changeForm }: Props) {
   const [password, setPassword] = useState("");
   const [failure, setFailure] = useState(false);
 
+
   const changeUsername = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUsername(event.target.value);
   };
@@ -23,7 +25,7 @@ function LoginBox({ changeForm }: Props) {
 
   const handleSubmit = async () => {
       axios
-        .post("http://localhost:8000/login", {
+        .post(`${BACKEND_URL}/login`, {
           username: username,
           password: password,
         })

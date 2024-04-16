@@ -16,6 +16,7 @@ import {
 import PageNotFound from "./PageNotFound";
 import Cookies from "js-cookie";
 import axios from "axios";
+import {BACKEND_URL} from "../constants";
 
 // ...
 
@@ -24,7 +25,7 @@ let isLogin = false;
 if (!token) {
     isLogin = false;
 } else {
-    await axios.post(`http://localhost:8000/authorization`, {token: token}).then((res) => {
+    await axios.post(`${BACKEND_URL}/authorization`, {token: token}).then((res) => {
       if (res.status == 200) {
           isLogin = true;
           console.log("Logged in")

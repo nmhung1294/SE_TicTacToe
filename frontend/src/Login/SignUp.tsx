@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Form, FormGroup, Label, Input, Button } from "reactstrap";
 import Warning from "../Components/Warning";
 import axios from "axios";
+import { BACKEND_URL } from "../../constants";
 
 interface Props {
   changeForm: () => void;
@@ -37,7 +38,7 @@ function SignUp({ changeForm }: Props) {
       return;
     } else {
       axios
-        .post("http://localhost:8000/signup", {
+        .post(`${BACKEND_URL}:8000/signup`, {
           username: username,
           email: email,
           password: password,

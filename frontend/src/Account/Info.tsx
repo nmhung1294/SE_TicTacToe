@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Form, FormGroup, Label, Col, Input, Button } from "reactstrap";
 import Cookies from "js-cookie";
 import axios from "axios";
+import { BACKEND_URL } from "../../constants";
 
 let token = Cookies.get("token");
 let player = {
@@ -12,7 +13,7 @@ let player = {
     win: 0,
 };
 await axios
-    .get("http://localhost:8000/profile", {
+    .get(`${BACKEND_URL}/profile`, {
         headers: {
             Authorization: `Bearer ${token}`,
         },
