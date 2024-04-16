@@ -1,9 +1,26 @@
 import { useState } from "react";
 import { FormGroup, Label, Col, Input, Button } from "reactstrap";
 import Warning from "../Components/Warning";
+import axios from "axios";
+import Cookies from "js-cookie";
+
+let token = Cookies.get("token"); 
+let player = { username: "a", email: "d" };
+await axios
+    .get("http://localhost:8000/profile", {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    })
+    .then((res) => {
+        player.email = res.data.data.email;
+        player.username = res.data.data.username;
+    })
+    .catch((err) => {
+        console.log(err);
+    });
 
 function Edit() {
-  const player = { username: "a", email: "d" };
   const [newUsername, changeUsername] = useState(player.username);
   const [newEmail, changeEmail] = useState(player.email);
   const [success, setSuccess] = useState(false);

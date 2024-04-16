@@ -3,6 +3,7 @@ import { Form, FormGroup, Label, Input, Button } from "reactstrap";
 import { useState, useEffect } from "react";
 import Warning from "../Components/Warning";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 interface Props {
   changeForm: () => void;
@@ -26,10 +27,17 @@ function LoginBox({ changeForm }: Props) {
           username: username,
           password: password,
         })
-        .then((response) => {
-          response.status === 200 ? (window.location.href = "/") : null;
+        .then((res) => {
+          if (res.status === 200) {
+            Cookies.set("token", res.data.token);
+            window.location.href = "/";
+          }
+          else {
+            window.location.href = "/login";  
+          }
         })
         .catch((error) => {
+          Cookies.remove("token");
           setFailure(true);
           console.error(error);
         });

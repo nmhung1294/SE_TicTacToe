@@ -5,6 +5,11 @@ import { Button } from "reactstrap";
 import Sidebar from "../Components/Sidebar";
 import Signout from "../Components/Signout";
 import { useLocation } from "react-router-dom";
+import Cookies from "js-cookie";
+import axios from "axios";
+
+
+// Set a cookie
 
 //Set up initial data for game
 
@@ -47,6 +52,21 @@ let opponentUsername = "opponent";
 let playerElo = (Date.now() % 1000).toString();
 let opponentElo = "???";
 //================================
+//Fetch player information
+let token = Cookies.get("token");
+await axios.get("http://localhost:8000/profile", {
+    headers: {
+        Authorization: `Bearer ${token}`,
+    },
+}).then((res) => {
+    console.log(res.data)
+    username = res.data.data.username;
+    playerElo = res.data.data.elo;
+}).catch((err) => {
+    console.log(err);
+});
+
+
 //SOCKET:
 import { io } from "socket.io-client";
 const socket = io("http://localhost:8000");
@@ -71,6 +91,7 @@ socket.on("join room", (data) => {
     cancelButton.click();
     console.log(data);
     setFindingOpponent(false);
+    setEndGame(false);
 });
 socket.on("game start", () => {
     console.log("-> Game start");
@@ -99,6 +120,7 @@ socket.on("time out", () => {
 });
 socket.on("end game", (data) => {
     console.log("-> End game");
+    console.log(data)
     let notifybox = document.querySelector(".notification") as Element;
     notifybox.textContent = data.winner + " win";
     setEndGame(true);
@@ -431,6 +453,14 @@ const Timer = (props: TimerProps) => {
                 setCountdown((prevCountdown) => {
                     if (endGame || prevCountdown <= 0) {
                         clearInterval(timer);
+                        socket.emit("time out", {
+                            time_out_player:
+                                props.player == "player-1"
+                                    ? opponentUsername
+                                    : username,
+                            room_id: roomID,
+                        });
+                        console.log("Time out");
                         setEndGame(true);
                     }
                     return prevCountdown <= 0 || endGame
@@ -532,7 +562,7 @@ function Play() {
     const [index, setIndex] = useState(0);
     const [showDiv, setShowDiv] = useState(false);
 
-    const handlePlayOnlineBtn = () => {
+    const handlePlayBtn = () => {
         setFindingOpponent(true);
         setIndex(0);
         setShowDiv(true);
@@ -542,8 +572,9 @@ function Play() {
         });
     };
 
-    const handlePlayOfflineBtn = () => {
-        setResetGame(true);
+    const handleQuitGame = () => {
+        socket.emit("quit game");
+        location.reload();
     };
 
     const handleCancelBtn = () => {
@@ -574,15 +605,15 @@ function Play() {
                 <div className="play">
                     <Button
                         className="play-btn play-now"
-                        children="Play Online"
-                        onClick={handlePlayOnlineBtn}
+                        children="Play"
+                        onClick={handlePlayBtn}
                     ></Button>
 
                     <h1 className="notification"></h1>
                     <Button
                         className="play-btn play-with-friend"
-                        children="Reset time"
-                        onClick={handlePlayOfflineBtn}
+                        children="Quit game"
+                        onClick={handleQuitGame}
                     ></Button>
                 </div>
                 {showDiv && (

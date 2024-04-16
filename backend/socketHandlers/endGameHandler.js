@@ -54,6 +54,7 @@ export default async function handleEndGame(
             );
             //roomData.delete(roomCode); Nếu thấy việc xóa là cần thiết
         }
+        console.log("Winner: ", winner_username);
         io.to(roomCode).emit("end game", { winner: winner_username });
     }
 }

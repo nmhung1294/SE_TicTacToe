@@ -21,7 +21,7 @@ interface TopPlayerProps {
 
 function TopPlayer({ players }: TopPlayerProps) {
   while (players.length < 3)
-    players.push({ ava: "", username: "", match: 0, win: 0, points: 0 });
+    players.push({ ava: "AVATAR", username: "haha", match: 0, win: 0, points: 0 });
 
   return (
     <div className="cards-holder">
