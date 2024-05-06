@@ -1,0 +1,22 @@
+.settingpage {
+    background-color:#E6CEA0;
+    width: 100%;
+}
+
+.main-content-setting {
+    position: absolute;
+    vertical-align: middle;
+    left: 10vw;
+    top: 25vh;
+    width: 89vw;
+    display: flex;
+    justify-content: center;
+}
+
+.switch-type {
+    margin-top: 80px;
+    margin-bottom: 80px;
+    color: #000000;
+    font-size: 30px;
+    font-weight: bold;
+}

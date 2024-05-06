@@ -1,0 +1,56 @@
+.sidebar {
+    background-color: #F6F1E4;
+    width: 11vw;
+    height: 100vh;
+    padding-top: 10px;
+}
+
+.sidebar-item {
+    background-size: contain;
+    background-position-y: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 80px;
+    margin: 0 auto;
+    margin-top: 50px;
+    transition: 500ms;
+}
+
+.sidebar-item:hover {
+    background-color: rgba(230, 206, 160, 0.2);
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.logo {
+    background-image: url(../assets/full-game-logo.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 100px;
+    background-size: contain;
+    background-position-y: center;
+    background-position-x: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.logo:hover {
+    cursor: pointer;
+}
+
+.nav-play {
+    background-image: url(../assets/play.png);
+}
+
+.nav-leaderboards {
+    background-image: url(../assets/leaderboards.png);
+}
+
+.nav-account {
+    background-image: url(../assets/account.png);
+}
+
+.nav-settings {
+    background-image: url(../assets/settings.png);
+}

@@ -1,0 +1,62 @@
+.login-page {
+  width: 100vw;
+  height: 100vh;
+  background-image: url(../assets/background-element.svg);
+  background-color: #e6cea0;
+  background-repeat: no-repeat;
+  background-position: left;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+
+  padding-top: 10%;
+  padding-left: 65%;
+}
+
+.label {
+  color: black;
+  font-size: large;
+}
+
+.input {
+  font: "Inter";
+}
+
+.login {
+  background-color: rgb(255, 255, 255, 0.7);
+  width: 450px;
+  height: 270px;
+  border-radius: 17px;
+  position: relative;
+
+  padding-top: 30px;
+  padding-left: 30px;
+  padding-right: 60px;
+  padding-bottom: 20px;
+}
+
+.sign-up {
+  background-color: rgb(255, 255, 255, 0.7);
+  width: 450px;
+  height: 440px;
+  border-radius: 17px;
+  position: relative;
+
+  padding-top: 30px;
+  padding-left: 30px;
+  padding-right: 60px;
+  padding-bottom: 20px;
+}
+
+.form-group {
+  position: relative;
+  min-width: 300px;
+}
+
+.header {
+  background-color: transparent;
+  background-image: url(../assets/tic-tac-toe.svg);
+  width: 500px;
+  height: 120px;
+  background-repeat: no-repeat;
+}
